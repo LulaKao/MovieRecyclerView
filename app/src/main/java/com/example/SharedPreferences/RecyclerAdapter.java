@@ -56,15 +56,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Viewho
                     // 設定 Notification
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(v.getContext().NOTIFICATION_SERVICE);
                     // 通知 1 設定
-                    NotificationChannel channelReserve = new NotificationChannel(
-                            idReserve,
-                            "Channel Reserve",
-                            NotificationManager.IMPORTANCE_HIGH);
-                    channelReserve.setDescription("已成功訂票！祝您觀影愉快！");
-                    channelReserve.enableLights(true);
-                    channelReserve.enableVibration(true);
-                    // 依設定建立通知
-                    notificationManager.createNotificationChannel(channelReserve);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel channelReserve = new NotificationChannel(
+                                idReserve,
+                                "Channel Reserve",
+                                NotificationManager.IMPORTANCE_HIGH);
+                        channelReserve.setDescription("已成功訂票！祝您觀影愉快！");
+                        channelReserve.enableLights(true);
+                        channelReserve.enableVibration(true);
+                        // 依設定建立通知
+                        notificationManager.createNotificationChannel(channelReserve);
+                    }
                     // 第 1 個訊息
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(v.getContext(), idReserve)
                             .setSmallIcon(R.mipmap.video)
